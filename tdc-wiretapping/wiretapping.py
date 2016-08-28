@@ -1,6 +1,6 @@
 # wiretapping.py
 
-def main(type: ("packet type", 'option', 't'), filename='output.pcap'):
+def main(arp: ("sniffs arp packets", 'flag', 'a'), filename='output.pcap'):
     "Ethernet packet sniffing"
     print(filename)
     # ...
