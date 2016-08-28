@@ -7,9 +7,10 @@ Para bajar las dependencias del proyecto (scapy, plac, etc.):
 
 make
 
-usage: wiretapping.py [-h] [-f FILEIN] [-a] [fileout]
 
 Ayuda por consola:
+
+usage: wiretapping.py [-h] [-f FILEIN] [-a] [fileout]
 
 Ethernet packet sniffing
 
