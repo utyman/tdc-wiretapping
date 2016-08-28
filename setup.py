@@ -14,7 +14,7 @@ setup(
     version='0.0.1',
     description='TP1 de Teoria de las Comunicaciones',
     long_description=readme,
-    author='FSG ',
+    author='utyman',
     author_email='me@kennethreitz.com',
     url='https://github.com/kennethreitz/samplemod',
     license=license,
