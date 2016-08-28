@@ -1,3 +1,4 @@
 nose
-scapy
 plac
+clint
+scapy
