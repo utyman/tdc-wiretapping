@@ -1,10 +1,4 @@
+H: 0.999631075557
 Packets occurrences:
-{'UNICAST': 15773, 'BROADCAST': 2}
+{'UNICAST': 1334, 'BROADCAST': 1275}
 
-Entropias:
-H: 0.00182414655686
-Hmax: logaritmoEnBase2(|S|): (solo 2 simbolos posibles = UNICAST o BROADCAST) logaritmoEnBase2(2): 1
-
-Informacion de simbolos:
-I(UNICAST) = -logaritmoEnBase2(15773 / 15775) = 1.829206343x10^(-4)
-I(BROADCAST) = -logaritmoEnBase2(2 / 15775) = 12.94535238 
