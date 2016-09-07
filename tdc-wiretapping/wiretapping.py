@@ -45,6 +45,35 @@ def sniffEthFromFile(filein, arp):
     except Exception,e: 
         puts(colored.red('Error reading file: ' + filein))
         sys.exit(-1)
+
+# shows entropy information
+def showEntropyARPWhoHAS(filein):
+    symbolOccurrences= [] 
+    try:
+        pkts = PcapReader(filein)
+        for pkt in pkts:
+            if pkt.type != ARP_CODE:
+                continue
+            
+            if pkt.payload.fields['op'] == 1:
+                symbolOccurrences.append("WHO_HAS")
+
+            if pkt.payload.fields['op'] == 2:
+                symbolOccurrences.append("IS_AT")
+            
+            
+        symbolsInfo = dict(collections.Counter(symbolOccurrences))
+        pktsTotal = len(symbolOccurrences)     
+        
+        print "H: " + str(inf_utils.entropy(symbolsInfo, float(pktsTotal)))
+        print "H_max: " + str(inf_utils.max_entropy(symbolsInfo))
+        print "Info Events: " + str(symbolsInfo)
+        inf_utils.dump_results(symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
+
+    except Exception,e: 
+        puts(colored.red('Error processing file: ' + filein))
+        sys.exit(-1)
+
         
 # shows entropy information
 def showEntropyARP(filein):
@@ -54,12 +83,16 @@ def showEntropyARP(filein):
         for pkt in pkts:
             if pkt.type != ARP_CODE:
                 continue
-            symbolOccurrences.append(pkt.fields['src'])
+            symbolOccurrences.append(pkt.payload.fields['psrc'])
         
         symbolsInfo = dict(collections.Counter(symbolOccurrences))
         pktsTotal = len(symbolOccurrences)     
         
-        inf_utils.entropy(symbolsInfo, float(pktsTotal))
+        print "H: " + str(inf_utils.entropy(symbolsInfo, float(pktsTotal)))
+        print "H_max: " + str(inf_utils.max_entropy(symbolsInfo))
+        print "Info Events: " + str(symbolsInfo)
+        inf_utils.dump_results(symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
+
     except Exception,e: 
         puts(colored.red('Error processing file: ' + filein))
         sys.exit(-1)
@@ -78,16 +111,20 @@ def showEntropyEth(filein):
         symbolsInfo = dict(collections.Counter(symbolOccurrences))
         pktsTotal = len(symbolOccurrences)     
         
-        inf_utils.entropy(symbolsInfo, float(pktsTotal))
+        print "H: " + str(inf_utils.entropy(symbolsInfo, float(pktsTotal)))
+        print "H_max: " + str(inf_utils.max_entropy(symbolsInfo))
+        print "Info Events: " + str(symbolsInfo)
+        inf_utils.dump_results(symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
     except Exception,e: 
         puts(colored.red('Error processing file: ' + filein))
         sys.exit(-1)
     
 @plac.annotations(
  arp=("sniffs arp packets", 'flag', 'a'),
+ typearp=("symbols for arp packets are WHOHAS AND ISAT", 'flag', 't'),
  filein=("read from file", 'option', 'f')
 )
-def main(filein, arp, fileout='output.pcap'):
+def main(filein, arp, typearp, fileout='output.pcap'):
     "Ethernet packet sniffing"
     
     if not filein:
@@ -97,10 +134,11 @@ def main(filein, arp, fileout='output.pcap'):
             sniffEth(fileout, lfilter)
     else:
         if arp:
-            sniffEthFromFile(filein, True)
-            showEntropyARP(filein)
+            if not typearp:
+                showEntropyARP(filein)
+            else:
+                showEntropyARPWhoHAS(filein)
         else:
-            sniffEthFromFile(filein, False)
             showEntropyEth(filein)
 
 
