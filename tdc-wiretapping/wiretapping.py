@@ -83,7 +83,7 @@ def showEntropyARP(filein):
         for pkt in pkts:
             if pkt.type != ARP_CODE:
                 continue
-            symbolOccurrences.append(pkt.payload.fields['psrc'])
+            symbolOccurrences.append(pkt.payload.fields['pdst'])
         
         symbolsInfo = dict(collections.Counter(symbolOccurrences))
         pktsTotal = len(symbolOccurrences)     
