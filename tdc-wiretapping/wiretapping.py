@@ -99,7 +99,7 @@ def showEntropyARP(filein):
     
 # shows entropy information
 def showEntropyEth(filein):
-    symbolOccurrences= [] 
+    symbolOccurrences= []
     try:
         pkts = PcapReader(filein)
         for pkt in pkts:

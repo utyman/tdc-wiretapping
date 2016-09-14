@@ -2,3 +2,4 @@ nose
 plac
 clint
 scapy
+graphviz
