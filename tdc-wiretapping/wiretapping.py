@@ -78,11 +78,18 @@ def showEntropyARPWhoHAS(filein):
 # shows entropy information
 def showEntropyARP(filein):
     symbolOccurrences= [] 
+    symbolConnections = dict();
     try:
         pkts = PcapReader(filein)
         for pkt in pkts:
             if pkt.type != ARP_CODE:
                 continue
+            if not pkt.payload.fields['psrc'] in symbolConnections:
+                symbolConnections[pkt.payload.fields['psrc']] =[];
+            
+            if ( not (pkt.payload.fields['pdst']) in symbolConnections.get(pkt.payload.fields['psrc'])):
+                symbolConnections.get(pkt.payload.fields['psrc']).append(pkt.payload.fields['pdst'])
+            
             symbolOccurrences.append(pkt.payload.fields['pdst'])
         
         symbolsInfo = dict(collections.Counter(symbolOccurrences))
@@ -92,7 +99,7 @@ def showEntropyARP(filein):
         print "H_max: " + str(inf_utils.max_entropy(symbolsInfo))
         print "Info Events: " + str(symbolsInfo)
         inf_utils.dump_results(symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
-
+        print inf_utils.dump_graph(symbolConnections);
     except Exception,e: 
         puts(colored.red('Error processing file: ' + filein))
         sys.exit(-1)
