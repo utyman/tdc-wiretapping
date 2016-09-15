@@ -68,7 +68,7 @@ def showEntropyARPWhoHAS(filein):
         print "H: " + str(inf_utils.entropy(symbolsInfo, float(pktsTotal)))
         print "H_max: " + str(inf_utils.max_entropy(symbolsInfo))
         print "Info Events: " + str(symbolsInfo)
-        inf_utils.dump_results(symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
+        inf_utils.dump_results(filein, symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
 
     except Exception,e: 
         puts(colored.red('Error processing file: ' + filein))
@@ -98,8 +98,8 @@ def showEntropyARP(filein):
         print "H: " + str(inf_utils.entropy(symbolsInfo, float(pktsTotal)))
         print "H_max: " + str(inf_utils.max_entropy(symbolsInfo))
         print "Info Events: " + str(symbolsInfo)
-        inf_utils.dump_results(symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
-        print inf_utils.dump_graph(symbolConnections);
+        inf_utils.dump_results(filein, symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
+        print inf_utils.dump_graph(filein, symbolConnections);
     except Exception,e: 
         puts(colored.red('Error processing file: ' + filein))
         sys.exit(-1)
