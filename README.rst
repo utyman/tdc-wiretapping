@@ -8,6 +8,11 @@ Para bajar las dependencias del proyecto (scapy, plac, etc.):
 make
 
 
+PARA USAR EL PROYECTO:
+1) Hacer make sobre esta carpeta
+2) Hacer make sobre la carpeta interna tdc-wiretapping (instrucciones extra dentro de ese make)
+
+
 Ayuda por consola:
 
 usage: wiretapping.py [-h] [-f FILEIN] [-a] [fileout]
