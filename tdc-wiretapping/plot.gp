@@ -1,6 +1,6 @@
 set term png font "arial,8" size 500,500
 set yrange [0:max]
-set output "informacion.png"
+set output filename
 set boxwidth 0.5
 set style fill solid
 set title "Información por Símbolos"
