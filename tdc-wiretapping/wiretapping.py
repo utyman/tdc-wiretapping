@@ -114,14 +114,14 @@ def showEntropyEth(filein):
                 symbolOccurrences.append("BROADCAST")
             else:
                 symbolOccurrences.append("UNICAST")
-        
+                
         symbolsInfo = dict(collections.Counter(symbolOccurrences))
         pktsTotal = len(symbolOccurrences)     
         
         print "H: " + str(inf_utils.entropy(symbolsInfo, float(pktsTotal)))
         print "H_max: " + str(inf_utils.max_entropy(symbolsInfo))
         print "Info Events: " + str(symbolsInfo)
-        inf_utils.dump_results(symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
+        inf_utils.dump_results(filein, symbolsInfo, inf_utils.entropy(symbolsInfo, float(pktsTotal)), inf_utils.max_entropy(symbolsInfo), float(pktsTotal));
     except Exception,e: 
         puts(colored.red('Error processing file: ' + filein))
         sys.exit(-1)

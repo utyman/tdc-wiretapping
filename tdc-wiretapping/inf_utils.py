@@ -16,7 +16,7 @@ def dump_results(filein, symbol_dict, entropy, max_entropy, totalEvents):
         
     max = max*1.25
     file.close();
-    system('gnuplot -e "max=' + str(max) +'" -e "filename=\'info' + str(ntpath.basename(filein)) + '\'" -e "maxentropy=' + str(max_entropy) + '" -e "entropy=' + str(entropy) + '" plot.gp')
+    system('gnuplot -e "max=' + str(max) +'" -e "filename=\'info' + str(ntpath.basename(filein) + '.png') + '\'" -e "maxentropy=' + str(max_entropy) + '" -e "entropy=' + str(entropy) + '" plot.gp')
     remove("data.dat")
 
 def dump_graph(filein, symbol_nodos):
@@ -30,7 +30,7 @@ def dump_graph(filein, symbol_nodos):
         for dest in destinos:
             dot.edge(nod, dest);
     
-    filename = str(ntpath.basename(filein))  + '.png';
+    filename = str(ntpath.basename(filein));
     dot.render(filename=filename);
     return dot;
     
