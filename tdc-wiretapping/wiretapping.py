@@ -10,6 +10,24 @@ from scapy.all import *
 ARP_CODE = 0x0806
 lfilter = lambda (p): p.haslayer(Ether) 
 
+def which(program):
+    import os
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
 # creates parent function with passed in arguments
 def action(options):
   def savePacket(pkt):
@@ -133,6 +151,10 @@ def showEntropyEth(filein):
 )
 def main(filein, arp, typearp, fileout='output.pcap'):
     "Ethernet packet sniffing"
+    
+    gnuplot = which('gnuplot')
+    if gnuplot == None:
+        puts(colored.red('Gnuplot must be installed to create graphics'));
     
     if not filein:
         if arp:
